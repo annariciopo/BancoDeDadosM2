@@ -43,101 +43,67 @@
         <type label="JSON" length="0" sql="JSON" quote="'"/>
         <type label="JSONB" length="0" sql="JSONB" quote="'"/>
 	</group>
-</datatypes><table x="583" y="399" name="users">
+</datatypes><table x="600" y="633" name="users">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="name" null="0" autoincrement="0">
-<datatype>VARCHAR(60)</datatype>
+<row name="names" null="0" autoincrement="0">
+<datatype>VARCHAR(70)</datatype>
 <default>'NULL'</default></row>
-<row name="email" null="0" autoincrement="0">
+<row name="emails" null="0" autoincrement="0">
 <datatype>VARCHAR(50)</datatype>
 <default>'NULL'</default></row>
-<row name="password" null="0" autoincrement="0">
-<datatype>VARCHAR(20)</datatype>
+<row name="passwords" null="0" autoincrement="0">
+<datatype>VARCHAR(30)</datatype>
 <default>'NULL'</default></row>
 <row name="cpf" null="0" autoincrement="0">
 <datatype>INTEGER(11)</datatype>
 <default>NULL</default></row>
-<row name="birth" null="0" autoincrement="0">
+<row name="births" null="0" autoincrement="0">
 <datatype>DATE</datatype>
 <default>'NULL'</default></row>
 <row name="role" null="0" autoincrement="0">
-<datatype>VARCHAR(20)</datatype>
+<datatype>TEXT(15)</datatype>
 <default>'NULL'</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="757" y="396" name="lines">
+<table x="304" y="539" name="production_lines">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
+<row name="lines" null="0" autoincrement="0">
+<datatype>VARCHAR(20)</datatype>
+<default>'NULL'</default></row>
 <row name="id_users" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="users" row="id" />
 </row>
-<row name="production_line" null="0" autoincrement="0">
-<datatype>VARCHAR(20)</datatype>
-<default>'NULL'</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="1402" y="607" name="materials">
+<table x="797" y="373.22222900390625" name="handbooks">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="type" null="0" autoincrement="0">
-<datatype>VARCHAR(20)</datatype>
-<default>'NULL'</default></row>
-<row name="title" null="0" autoincrement="0">
-<datatype>VARCHAR(60)</datatype>
-<default>'NULL'</default></row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="1402" y="449" name="products">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="name" null="0" autoincrement="0">
-<datatype>VARCHAR(80)</datatype>
-<default>'NULL'</default></row>
-<row name="type" null="0" autoincrement="0">
-<datatype>VARCHAR(50)</datatype>
-<default>'NULL'</default></row>
-<row name="registration_number" null="0" autoincrement="0">
+<row name="titles" null="0" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>'NULL'</default></row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="1401" y="303" name="infos">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
+<row name="read" null="0" autoincrement="0">
+<datatype>BOOLEAN</datatype>
+<default>'NULL'</default></row>
+<row name="versions" null="0" autoincrement="0">
+<datatype>BIGINT(10)</datatype>
 <default>NULL</default></row>
-<row name="description" null="0" autoincrement="0">
+<row name="important" null="0" autoincrement="0">
+<datatype>BOOLEAN</datatype>
+<default>'NULL'</default></row>
+<row name="descriptions" null="0" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>'NULL'</default></row>
-<row name="version" null="0" autoincrement="0">
-<datatype>VARCHAR(10)</datatype>
-<default>'NULL'</default></row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="1175" y="404" name="handbooks">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="id_infos" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="infos" row="id" />
-</row>
-<row name="id_product" null="1" autoincrement="0">
+<row name="id_products" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="products" row="id" />
 </row>
@@ -145,24 +111,74 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="materials" row="id" />
 </row>
-<row name="read" null="0" autoincrement="0">
-<datatype>BOOLEAN</datatype>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="997" y="350.22222900390625" name="products">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="names" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>'NULL'</default></row>
+<row name="registration_numbers" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>'NULL'</default></row>
+<row name="types" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>'NULL'</default></row>
+<row name="products_lines" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
 <default>'NULL'</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="947" y="400" name="lines_handbooks">
+<table x="1000" y="541.2222290039062" name="materials">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="id_lines" null="1" autoincrement="0">
+<row name="titles" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>'NULL'</default></row>
+<row name="contents" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>'NULL'</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="795" y="641.2222290039062" name="feedbacks">
+<row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="lines" row="id" />
-</row>
+<default>NULL</default></row>
+<row name="text" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>'NULL'</default></row>
 <row name="id_handbooks" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="handbooks" row="id" />
+</row>
+<row name="id_users" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="users" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="513" y="449.22222900390625" name="production_lines_handbooks">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_handbooks" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="handbooks" row="id" />
+</row>
+<row name="id_production_lines" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="production_lines" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>

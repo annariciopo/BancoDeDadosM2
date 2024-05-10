@@ -1,76 +1,82 @@
 CREATE TABLE users (
  id BIGSERIAL,
- name VARCHAR(60) NOT NULL DEFAULT 'NULL',
- email VARCHAR(50) NOT NULL DEFAULT 'NULL',
- password VARCHAR(20) NOT NULL DEFAULT 'NULL',
+ names VARCHAR(70) NOT NULL DEFAULT 'NULL',
+ emails VARCHAR(50) NOT NULL DEFAULT 'NULL',
+ passwords VARCHAR(30) NOT NULL DEFAULT 'NULL',
  cpf INTEGER(11) NOT NULL,
- birth DATE NOT NULL DEFAULT 'NULL',
- role VARCHAR(20) NOT NULL DEFAULT 'NULL'
+ births DATE NOT NULL DEFAULT 'NULL',
+ role TEXT(15) NOT NULL DEFAULT 'NULL'
 );
 
 
 ALTER TABLE users ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
-CREATE TABLE lines (
+CREATE TABLE production_lines (
  id BIGSERIAL,
- id_users INTEGER,
- production_line VARCHAR(20) NOT NULL DEFAULT 'NULL'
+ lines VARCHAR(20) NOT NULL DEFAULT 'NULL',
+ id_users INTEGER
 );
 
 
-ALTER TABLE lines ADD CONSTRAINT lines_pkey PRIMARY KEY (id);
-
-CREATE TABLE materials (
- id BIGSERIAL,
- type VARCHAR(20) NOT NULL DEFAULT 'NULL',
- title VARCHAR(60) NOT NULL DEFAULT 'NULL'
-);
-
-
-ALTER TABLE materials ADD CONSTRAINT materials_pkey PRIMARY KEY (id);
-
-CREATE TABLE products (
- id BIGSERIAL,
- name VARCHAR(80) NOT NULL DEFAULT 'NULL',
- type VARCHAR(50) NOT NULL DEFAULT 'NULL',
- registration_number VARCHAR NOT NULL DEFAULT 'NULL'
-);
-
-
-ALTER TABLE products ADD CONSTRAINT products_pkey PRIMARY KEY (id);
-
-CREATE TABLE infos (
- id BIGSERIAL,
- description VARCHAR NOT NULL DEFAULT 'NULL',
- version VARCHAR(10) NOT NULL DEFAULT 'NULL'
-);
-
-
-ALTER TABLE infos ADD CONSTRAINT infos_pkey PRIMARY KEY (id);
+ALTER TABLE production_lines ADD CONSTRAINT production_lines_pkey PRIMARY KEY (id);
 
 CREATE TABLE handbooks (
  id BIGSERIAL,
- id_infos INTEGER,
- id_product INTEGER,
- id_materials INTEGER,
- read BOOLEAN NOT NULL DEFAULT 'NULL'
+ titles VARCHAR NOT NULL DEFAULT 'NULL',
+ read BOOLEAN NOT NULL DEFAULT 'NULL',
+ versions BIGINT(10) NOT NULL,
+ important BOOLEAN NOT NULL DEFAULT 'NULL',
+ descriptions VARCHAR NOT NULL DEFAULT 'NULL',
+ id_products INTEGER,
+ id_materials INTEGER
 );
 
 
 ALTER TABLE handbooks ADD CONSTRAINT handbooks_pkey PRIMARY KEY (id);
 
-CREATE TABLE lines_handbooks (
+CREATE TABLE products (
  id BIGSERIAL,
- id_lines INTEGER,
- id_handbooks INTEGER
+ names VARCHAR NOT NULL DEFAULT 'NULL',
+ registration_numbers VARCHAR NOT NULL DEFAULT 'NULL',
+ types VARCHAR NOT NULL DEFAULT 'NULL',
+ products_lines VARCHAR NOT NULL DEFAULT 'NULL'
 );
 
 
-ALTER TABLE lines_handbooks ADD CONSTRAINT lines_handbooks_pkey PRIMARY KEY (id);
+ALTER TABLE products ADD CONSTRAINT products_pkey PRIMARY KEY (id);
 
-ALTER TABLE lines ADD CONSTRAINT lines_id_users_fkey FOREIGN KEY (id_users) REFERENCES users(id);
-ALTER TABLE handbooks ADD CONSTRAINT handbooks_id_infos_fkey FOREIGN KEY (id_infos) REFERENCES infos(id);
-ALTER TABLE handbooks ADD CONSTRAINT handbooks_id_product_fkey FOREIGN KEY (id_product) REFERENCES products(id);
+CREATE TABLE materials (
+ id BIGSERIAL,
+ titles VARCHAR NOT NULL DEFAULT 'NULL',
+ contents VARCHAR NOT NULL DEFAULT 'NULL'
+);
+
+
+ALTER TABLE materials ADD CONSTRAINT materials_pkey PRIMARY KEY (id);
+
+CREATE TABLE feedbacks (
+ id BIGSERIAL,
+ text VARCHAR NOT NULL DEFAULT 'NULL',
+ id_handbooks INTEGER,
+ id_users INTEGER
+);
+
+
+ALTER TABLE feedbacks ADD CONSTRAINT feedbacks_pkey PRIMARY KEY (id);
+
+CREATE TABLE production_lines_handbooks (
+ id BIGSERIAL,
+ id_handbooks INTEGER,
+ id_production_lines INTEGER
+);
+
+
+ALTER TABLE production_lines_handbooks ADD CONSTRAINT production_lines_handbooks_pkey PRIMARY KEY (id);
+
+ALTER TABLE production_lines ADD CONSTRAINT production_lines_id_users_fkey FOREIGN KEY (id_users) REFERENCES users(id);
+ALTER TABLE handbooks ADD CONSTRAINT handbooks_id_products_fkey FOREIGN KEY (id_products) REFERENCES products(id);
 ALTER TABLE handbooks ADD CONSTRAINT handbooks_id_materials_fkey FOREIGN KEY (id_materials) REFERENCES materials(id);
-ALTER TABLE lines_handbooks ADD CONSTRAINT lines_handbooks_id_lines_fkey FOREIGN KEY (id_lines) REFERENCES lines(id);
-ALTER TABLE lines_handbooks ADD CONSTRAINT lines_handbooks_id_handbooks_fkey FOREIGN KEY (id_handbooks) REFERENCES handbooks(id);
+ALTER TABLE feedbacks ADD CONSTRAINT feedbacks_id_handbooks_fkey FOREIGN KEY (id_handbooks) REFERENCES handbooks(id);
+ALTER TABLE feedbacks ADD CONSTRAINT feedbacks_id_users_fkey FOREIGN KEY (id_users) REFERENCES users(id);
+ALTER TABLE production_lines_handbooks ADD CONSTRAINT production_lines_handbooks_id_handbooks_fkey FOREIGN KEY (id_handbooks) REFERENCES handbooks(id);
+ALTER TABLE production_lines_handbooks ADD CONSTRAINT production_lines_handbooks_id_production_lines_fkey FOREIGN KEY (id_production_lines) REFERENCES production_lines(id);
